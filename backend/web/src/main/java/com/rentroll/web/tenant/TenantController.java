@@ -1,5 +1,6 @@
 package com.rentroll.web.tenant;
 
+import com.rentroll.core.dto.TenantDTO;
 import com.rentroll.core.tenant.Tenant;
 import com.rentroll.core.user.User;
 import com.rentroll.services.tenant.TenantService;
@@ -36,9 +37,9 @@ public class TenantController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Tenant>> getTenantsForCurrentLandlord() {
+    public ResponseEntity<List<TenantDTO>> getTenantsForCurrentLandlord() {
         User currentUser = getCurrentUser();
-        List<Tenant> tenants = tenantService.getTenantsByLandlord(currentUser.getId());
+        List<TenantDTO> tenants = tenantService.getTenantsByLandlord(currentUser.getId());
         return ResponseEntity.ok(tenants);
     }
 
@@ -83,7 +84,9 @@ public class TenantController {
 
     private boolean isUserAuthorizedForTenant(Long tenantId) {
         User currentUser = getCurrentUser();
-        List<Tenant> landlordTenants = tenantService.getTenantsByLandlord(currentUser.getId());
+        // This check is now slightly inefficient as it re-fetches, but it's secure.
+        // For optimization, a dedicated service method could be created.
+        List<TenantDTO> landlordTenants = tenantService.getTenantsByLandlord(currentUser.getId());
         return landlordTenants.stream().anyMatch(t -> t.getId().equals(tenantId));
     }
 }

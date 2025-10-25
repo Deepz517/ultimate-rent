@@ -4,6 +4,7 @@ import com.rentroll.core.lease.Lease;
 import com.rentroll.core.tenant.Tenant;
 import com.rentroll.data.lease.LeaseRepository;
 import com.rentroll.data.tenant.TenantRepository;
+import com.rentroll.core.dto.TenantDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,11 +33,17 @@ public class TenantServiceImpl implements TenantService {
     }
 
     @Override
-    public List<Tenant> getTenantsByLandlord(Long landlordId) {
+    public List<TenantDTO> getTenantsByLandlord(Long landlordId) {
         return leaseRepository.findByLandlordId(landlordId)
                 .stream()
-                .map(Lease::getTenant)
-                .distinct()
+                .map(lease -> new TenantDTO(
+                        lease.getTenant().getId(),
+                        lease.getTenant().getName(),
+                        lease.getTenant().getUnit(),
+                        lease.getStartDate(),
+                        lease.getEndDate()
+                ))
+                .distinct() // In case a tenant has multiple leases, though this may not be desired.
                 .collect(Collectors.toList());
     }
 

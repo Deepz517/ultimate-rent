@@ -18,13 +18,21 @@ public class NotificationServiceImpl implements NotificationService {
         this.leaseRepository = leaseRepository;
     }
 
+    private LocalDate getDueDateForCurrentMonth(Lease lease) {
+        LocalDate today = LocalDate.now();
+        int leaseDay = lease.getStartDate().getDayOfMonth();
+        int lastDayOfMonth = today.lengthOfMonth();
+        int dueDay = Math.min(leaseDay, lastDayOfMonth);
+        return LocalDate.of(today.getYear(), today.getMonth(), dueDay);
+    }
+
     @Override
     public void sendRentReminders() {
         LocalDate today = LocalDate.now();
         List<Lease> leases = leaseRepository.findAll();
 
         for (Lease lease : leases) {
-            LocalDate dueDate = lease.getStartDate().withDayOfMonth(lease.getStartDate().getDayOfMonth());
+            LocalDate dueDate = getDueDateForCurrentMonth(lease);
             if (dueDate.isEqual(today.plusDays(3))) {
                 LOGGER.info("Rent reminder for tenant: {}", lease.getTenant().getName());
             }
@@ -37,7 +45,7 @@ public class NotificationServiceImpl implements NotificationService {
         List<Lease> leases = leaseRepository.findAll();
 
         for (Lease lease : leases) {
-            LocalDate dueDate = lease.getStartDate().withDayOfMonth(lease.getStartDate().getDayOfMonth());
+            LocalDate dueDate = getDueDateForCurrentMonth(lease);
             if (dueDate.isEqual(today.minusDays(1))) {
                 LOGGER.info("Rent overdue for tenant: {}", lease.getTenant().getName());
             }
