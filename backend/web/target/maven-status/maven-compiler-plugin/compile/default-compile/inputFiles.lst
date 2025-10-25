@@ -1,5 +1,0 @@
-/app/backend/web/src/main/java/com/rentroll/web/RentRollApplication.java
-/app/backend/web/src/main/java/com/rentroll/web/auth/AuthenticationController.java
-/app/backend/web/src/main/java/com/rentroll/web/auth/AuthenticationRequest.java
-/app/backend/web/src/main/java/com/rentroll/web/auth/AuthenticationResponse.java
-/app/backend/web/src/main/java/com/rentroll/web/utilitybill/UtilityBillController.java
