@@ -1,39 +1,33 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { Route, Routes, Navigate, useLocation } from 'react-router-dom';
 import { ConfigProvider, theme } from 'antd';
+import { useAuth } from './context/AuthContext';
+import LoginPage from './pages/LoginPage';
 import './App.css';
 
-// --- Placeholder Components ---
-// In a real app, these would be in their own files.
-const LoginPage = () => <div>Login Page</div>;
+// --- Placeholder Pages ---
 const LandlordDashboard = () => <div>Landlord Dashboard</div>;
 const TenantPortal = () => <div>Tenant Portal</div>;
 const NotFound = () => <div>404 Not Found</div>;
+const Unauthorized = () => <div>403 Unauthorized</div>;
 
-// --- Mock Auth Hook ---
-// This will be replaced with a real JWT-based auth hook.
-const useAuth = () => {
-  // Mock values: set to 'LANDLORD', 'TENANT', or null to test routing.
-  const role: 'LANDLORD' | 'TENANT' | null = 'LANDLORD'; // Change this to test roles
-  const isAuthenticated = role !== null;
-  return { isAuthenticated, role };
-};
 
 // --- Protected Route Component ---
 interface ProtectedRouteProps {
-  allowedRoles: string[];
+  allowedRoles: ('LANDLORD' | 'TENANT')[];
   children: React.ReactElement;
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles, children }) => {
-  const { isAuthenticated, role } = useAuth();
+  const { isAuthenticated, user } = useAuth();
+  const location = useLocation();
 
   if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  if (role && !allowedRoles.includes(role)) {
-    return <Navigate to="/unauthorized" replace />; // Or a specific "Unauthorized" page
+  if (!user || !allowedRoles.includes(user.role)) {
+    return <Navigate to="/unauthorized" replace />;
   }
 
   return children;
@@ -41,6 +35,8 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles, children 
 
 
 function App() {
+  const { isAuthenticated, user } = useAuth();
+
   return (
     <ConfigProvider
       theme={{
@@ -50,37 +46,39 @@ function App() {
         },
       }}
     >
-      <Router>
-        <Routes>
-          <Route path="/login" element={<LoginPage />} />
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/unauthorized" element={<Unauthorized />} />
 
-          {/* Landlord Routes */}
-          <Route
-            path="/landlord/*"
-            element={
-              <ProtectedRoute allowedRoles={['LANDLORD']}>
-                <LandlordDashboard />
-              </ProtectedRoute>
-            }
-          />
+        <Route
+          path="/landlord/*"
+          element={
+            <ProtectedRoute allowedRoles={['LANDLORD']}>
+              <LandlordDashboard />
+            </ProtectedRoute>
+          }
+        />
 
-          {/* Tenant Routes */}
-          <Route
-            path="/tenant/*"
-            element={
-              <ProtectedRoute allowedRoles={['TENANT']}>
-                <TenantPortal />
-              </ProtectedRoute>
-            }
-          />
+        <Route
+          path="/tenant/*"
+          element={
+            <ProtectedRoute allowedRoles={['TENANT']}>
+              <TenantPortal />
+            </ProtectedRoute>
+          }
+        />
 
-          {/* Default route */}
-          <Route path="/" element={<Navigate to="/login" />} />
+        <Route
+          path="/"
+          element={
+            isAuthenticated
+              ? user?.role === 'LANDLORD' ? <Navigate to="/landlord" /> : <Navigate to="/tenant" />
+              : <Navigate to="/login" />
+          }
+        />
 
-          {/* Not Found Route */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </Router>
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </ConfigProvider>
   );
 }
