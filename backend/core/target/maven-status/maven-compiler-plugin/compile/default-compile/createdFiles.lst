@@ -1,0 +1,8 @@
+com/rentroll/core/tenant/Tenant.class
+com/rentroll/core/lease/Lease.class
+com/rentroll/core/user/Role.class
+com/rentroll/core/payment/Payment.class
+com/rentroll/core/payment/PaymentMethod.class
+com/rentroll/core/user/User.class
+com/rentroll/core/utilitybill/BillType.class
+com/rentroll/core/utilitybill/UtilityBill.class

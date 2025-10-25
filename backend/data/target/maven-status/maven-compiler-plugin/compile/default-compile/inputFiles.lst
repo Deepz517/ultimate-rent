@@ -1,0 +1,5 @@
+/app/backend/data/src/main/java/com/rentroll/data/lease/LeaseRepository.java
+/app/backend/data/src/main/java/com/rentroll/data/payment/PaymentRepository.java
+/app/backend/data/src/main/java/com/rentroll/data/tenant/TenantRepository.java
+/app/backend/data/src/main/java/com/rentroll/data/user/UserRepository.java
+/app/backend/data/src/main/java/com/rentroll/data/utilitybill/UtilityBillRepository.java

@@ -1,0 +1,8 @@
+/app/backend/core/src/main/java/com.rentroll/core/lease/Lease.java
+/app/backend/core/src/main/java/com/rentroll/core/payment/Payment.java
+/app/backend/core/src/main/java/com/rentroll/core/payment/PaymentMethod.java
+/app/backend/core/src/main/java/com/rentroll/core/tenant/Tenant.java
+/app/backend/core/src/main/java/com/rentroll/core/user/Role.java
+/app/backend/core/src/main/java/com/rentroll/core/user/User.java
+/app/backend/core/src/main/java/com/rentroll/core/utilitybill/BillType.java
+/app/backend/core/src/main/java/com/rentroll/core/utilitybill/UtilityBill.java

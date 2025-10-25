@@ -1,0 +1,5 @@
+com/rentroll/data/lease/LeaseRepository.class
+com/rentroll/data/payment/PaymentRepository.class
+com/rentroll/data/utilitybill/UtilityBillRepository.class
+com/rentroll/data/tenant/TenantRepository.class
+com/rentroll/data/user/UserRepository.class
