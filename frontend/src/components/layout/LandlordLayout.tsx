@@ -11,6 +11,7 @@ import {
 } from '@ant-design/icons';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import NotificationBell from '../notifications/NotificationBell';
 
 const { Header, Content, Sider } = Layout;
 const { Title } = Typography;
@@ -47,7 +48,8 @@ const LandlordLayout: React.FC = () => {
       </Sider>
       <Layout>
         <Header style={{ padding: '0 16px', background: '#fff', display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
-          <Avatar icon={<UserOutlined />} style={{ marginRight: '8px' }}/>
+          <NotificationBell />
+          <Avatar icon={<UserOutlined />} style={{ marginLeft: '16px', marginRight: '8px' }}/>
           <span style={{ marginRight: '16px' }}>{user?.username}</span>
           <Button type="primary" icon={<LogoutOutlined />} onClick={logout}>
             Logout

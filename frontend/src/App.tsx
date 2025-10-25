@@ -10,10 +10,11 @@ import LeasesPage from './pages/LeasesPage';
 import PaymentsPage from './pages/PaymentsPage';
 import UtilityBillsPage from './pages/UtilityBillsPage';
 import ReportsPage from './pages/ReportsPage';
+import TenantLayout from './components/layout/TenantLayout';
+import TenantDashboardPage from './pages/TenantDashboardPage';
 import './App.css';
 
 // --- Placeholder Pages ---
-const TenantPortal = () => <div>Tenant Portal</div>;
 const NotFound = () => <div>404 Not Found</div>;
 const Unauthorized = () => <div>403 Unauthorized</div>;
 
@@ -77,10 +78,12 @@ function App() {
           path="/tenant"
           element={
             <ProtectedRoute allowedRoles={['TENANT']}>
-              <TenantPortal />
+              <TenantLayout />
             </ProtectedRoute>
           }
-        />
+        >
+            <Route index element={<TenantDashboardPage />} />
+        </Route>
 
         <Route
           path="/"
