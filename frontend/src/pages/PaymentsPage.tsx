@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Table, Button, Select, Typography, Spin, message } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
-import api from '../../services/api';
-import PaymentForm from '../../components/payments/PaymentForm';
+import api from '../services/api';
+import PaymentForm from '../components/payments/PaymentForm';
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -68,8 +68,8 @@ const PaymentsPage: React.FC = () => {
   };
 
   const columns = [
-    { title: 'Amount', dataIndex: 'amount', key: 'amount', render: (amount) => `₹${amount}` },
-    { title: 'Payment Date', dataIndex: 'paymentDate', key: 'paymentDate', render: (date) => new Date(date).toLocaleDateString() },
+    { title: 'Amount', dataIndex: 'amount', key: 'amount', render: (amount: any) => `₹${amount}` },
+    { title: 'Payment Date', dataIndex: 'paymentDate', key: 'paymentDate', render: (date: any) => new Date(date).toLocaleDateString() },
     { title: 'Payment Method', dataIndex: 'paymentMethod', key: 'paymentMethod' },
     { title: 'Note', dataIndex: 'note', key: 'note' },
   ];

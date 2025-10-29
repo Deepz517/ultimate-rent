@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Input, Modal, Select, DatePicker, InputNumber, Upload, Button } from 'antd';
+import { Form, Input, Modal, Select, DatePicker, InputNumber, Upload, Button, UploadFile } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import moment from 'moment';
 
@@ -14,7 +14,7 @@ interface UtilityBillFormProps {
 
 const UtilityBillForm: React.FC<UtilityBillFormProps> = ({ visible, onCancel, onOk, initialValues }) => {
   const [form] = Form.useForm();
-  const [fileList, setFileList] = useState([]);
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
 
   const handleOk = () => {
     form.validateFields().then(values => {
@@ -26,10 +26,10 @@ const UtilityBillForm: React.FC<UtilityBillFormProps> = ({ visible, onCancel, on
   };
 
   const uploadProps = {
-    onRemove: file => {
+    onRemove: (file: any) => {
       setFileList([]);
     },
-    beforeUpload: file => {
+    beforeUpload: (file: any) => {
       setFileList([file]);
       return false; // Prevent automatic upload
     },

@@ -41,13 +41,13 @@ const UtilityBillsList: React.FC<UtilityBillsListProps> = ({ leaseId }) => {
 
   const columns = [
     { title: 'Bill Type', dataIndex: 'billType', key: 'billType' },
-    { title: 'Amount', dataIndex: 'amount', key: 'amount', render: (amount) => `₹${new Intl.NumberFormat('en-IN').format(amount)}` },
-    { title: 'Due Date', dataIndex: 'dueDate', key: 'dueDate', render: (date) => new Date(date).toLocaleDateString() },
+    { title: 'Amount', dataIndex: 'amount', key: 'amount', render: (amount: any) => `₹${new Intl.NumberFormat('en-IN').format(amount)}` },
+    { title: 'Due Date', dataIndex: 'dueDate', key: 'dueDate', render: (date: any) => new Date(date).toLocaleDateString() },
     { title: 'Billing Period', dataIndex: 'billingPeriod', key: 'billingPeriod' },
     {
       title: 'Action',
       key: 'action',
-      render: (_, record: UtilityBill) => (
+      render: (_: any, record: UtilityBill) => (
         <Space>
           <Button icon={<EyeOutlined />} onClick={() => window.open(`http://localhost:8080/uploads/${record.imageUrl}`, '_blank')}>View Bill</Button>
         </Space>

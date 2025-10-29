@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes, Navigate, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate, useLocation } from 'react-router-dom';
 import { ConfigProvider, theme } from 'antd';
 import { useAuth } from './context/AuthContext';
 import LoginPage from './pages/LoginPage';
@@ -53,49 +53,43 @@ function App() {
         },
       }}
     >
-      <Routes>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/unauthorized" element={<Unauthorized />} />
-
-        <Route
-          path="/landlord"
-          element={
-            <ProtectedRoute allowedRoles={['LANDLORD']}>
-              <LandlordLayout />
-            </ProtectedRoute>
-          }
-        >
-          <Route index element={<Navigate to="dashboard" />} />
-          <Route path="dashboard" element={<DashboardPage />} />
-          <Route path="tenants" element={<TenantsPage />} />
-          <Route path="leases" element={<LeasesPage />} />
-          <Route path="payments" element={<PaymentsPage />} />
-          <Route path="bills" element={<UtilityBillsPage />} />
-          <Route path="reports" element={<ReportsPage />} />
-        </Route>
-
-        <Route
-          path="/tenant"
-          element={
-            <ProtectedRoute allowedRoles={['TENANT']}>
-              <TenantLayout />
-            </ProtectedRoute>
-          }
-        >
-            <Route index element={<TenantDashboardPage />} />
-        </Route>
-
-        <Route
-          path="/"
-          element={
-            isAuthenticated
-              ? user?.role === 'LANDLORD' ? <Navigate to="/landlord" /> : <Navigate to="/tenant" />
-              : <Navigate to="/login" />
-          }
-        />
-
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <Router>
+        <Routes>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/unauthorized" element={<Unauthorized />} />
+          <Route
+            path="/landlord/*"
+            element={
+              <ProtectedRoute allowedRoles={['LANDLORD']}>
+                <LandlordLayout />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/tenant/*"
+            element={
+              <ProtectedRoute allowedRoles={['TENANT']}>
+                <TenantLayout />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/"
+            element={
+              isAuthenticated ? (
+                user?.role === 'LANDLORD' ? (
+                  <Navigate to="/landlord" />
+                ) : (
+                  <Navigate to="/tenant" />
+                )
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Router>
     </ConfigProvider>
   );
 }

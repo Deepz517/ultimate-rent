@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Input, Button, Card, Typography, Row, Col, Alert } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import useAuth from '../../hooks/useAuth'; // Assuming useAuth is in the hooks directory
+import { useAuth } from '../context/AuthContext';
 
 const { Title } = Typography;
 
