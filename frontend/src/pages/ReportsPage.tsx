@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Typography, Spin, Card } from 'antd';
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import api from '../../services/api';
+import api from '../services/api';
 
 const { Title } = Typography;
 

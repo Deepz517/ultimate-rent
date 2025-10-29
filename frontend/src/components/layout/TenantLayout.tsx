@@ -1,7 +1,8 @@
 import React from 'react';
 import { Layout, Button, Typography, Avatar } from 'antd';
 import { UserOutlined, LogoutOutlined } from '@ant-design/icons';
-import { Outlet } from 'react-router-dom';
+import { Route, Routes, Outlet } from 'react-router-dom';
+import TenantDashboardPage from '../../pages/TenantDashboardPage';
 import { useAuth } from '../../context/AuthContext';
 import NotificationBell from '../notifications/NotificationBell';
 
@@ -26,7 +27,9 @@ const TenantLayout: React.FC = () => {
       </Header>
       <Content style={{ padding: '50px' }}>
         <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>
-          <Outlet /> {/* Child routes will be rendered here */}
+          <Routes>
+            <Route path="/" element={<TenantDashboardPage />} />
+          </Routes>
         </div>
       </Content>
     </Layout>

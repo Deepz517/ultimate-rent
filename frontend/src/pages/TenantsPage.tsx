@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Table, Button, Space, Typography, Spin, Modal, message } from 'antd';
 import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import api from '../../services/api';
-import TenantForm from '../../components/tenants/TenantForm';
+import api from '../services/api';
+import TenantForm from '../components/tenants/TenantForm';
 
 const { Title } = Typography;
 const { confirm } = Modal;
@@ -88,12 +88,12 @@ const TenantsPage: React.FC = () => {
   const columns = [
     { title: 'Name', dataIndex: 'name', key: 'name' },
     { title: 'Unit', dataIndex: 'unit', key: 'unit' },
-    { title: 'Lease Start', dataIndex: 'leaseStartDate', key: 'leaseStartDate', render: (date) => date ? new Date(date).toLocaleDateString() : 'N/A' },
-    { title: 'Lease End', dataIndex: 'leaseEndDate', key: 'leaseEndDate', render: (date) => date ? new Date(date).toLocaleDateString() : 'N/A' },
+    { title: 'Lease Start', dataIndex: 'leaseStartDate', key: 'leaseStartDate', render: (date: any) => date ? new Date(date).toLocaleDateString() : 'N/A' },
+    { title: 'Lease End', dataIndex: 'leaseEndDate', key: 'leaseEndDate', render: (date: any) => date ? new Date(date).toLocaleDateString() : 'N/A' },
     {
       title: 'Action',
       key: 'action',
-      render: (_, record: Tenant) => (
+      render: (_: any, record: Tenant) => (
         <Space size="middle">
           <Button icon={<EditOutlined />} onClick={() => handleEdit(record)}>Edit</Button>
           <Button icon={<DeleteOutlined />} danger onClick={() => handleDelete(record.id)}>Delete</Button>

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Table, Button, Space, Typography, Spin, Modal, message } from 'antd';
 import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import api from '../../services/api';
-import LeaseForm from '../../components/leases/LeaseForm';
+import api from '../services/api';
+import LeaseForm from '../components/leases/LeaseForm';
 import moment from 'moment';
 
 const { Title } = Typography;
@@ -93,13 +93,13 @@ const LeasesPage: React.FC = () => {
 
   const columns = [
     { title: 'Tenant Name', dataIndex: ['tenant', 'name'], key: 'tenantName' },
-    { title: 'Rent Amount', dataIndex: 'rentAmount', key: 'rentAmount', render: (amount) => `₹${amount}` },
-    { title: 'Start Date', dataIndex: 'startDate', key: 'startDate', render: (date) => new Date(date).toLocaleDateString() },
-    { title: 'End Date', dataIndex: 'endDate', key: 'endDate', render: (date) => new Date(date).toLocaleDateString() },
+    { title: 'Rent Amount', dataIndex: 'rentAmount', key: 'rentAmount', render: (amount: any) => `₹${amount}` },
+    { title: 'Start Date', dataIndex: 'startDate', key: 'startDate', render: (date: any) => new Date(date).toLocaleDateString() },
+    { title: 'End Date', dataIndex: 'endDate', key: 'endDate', render: (date: any) => new Date(date).toLocaleDateString() },
     {
       title: 'Action',
       key: 'action',
-      render: (_, record: Lease) => (
+      render: (_: any, record: Lease) => (
         <Space size="middle">
           <Button icon={<EditOutlined />} onClick={() => handleEdit(record)}>Edit</Button>
           <Button icon={<DeleteOutlined />} danger onClick={() => handleDelete(record.id)}>Delete</Button>

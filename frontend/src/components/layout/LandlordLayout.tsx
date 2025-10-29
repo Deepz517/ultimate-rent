@@ -9,7 +9,13 @@ import {
   PieChartOutlined,
   LogoutOutlined,
 } from '@ant-design/icons';
-import { Link, Outlet, useLocation } from 'react-router-dom';
+import { Link, Route, Routes, Outlet, useLocation } from 'react-router-dom';
+import DashboardPage from '../../pages/DashboardPage';
+import TenantsPage from '../../pages/TenantsPage';
+import LeasesPage from '../../pages/LeasesPage';
+import PaymentsPage from '../../pages/PaymentsPage';
+import UtilityBillsPage from '../../pages/UtilityBillsPage';
+import ReportsPage from '../../pages/ReportsPage';
 import { useAuth } from '../../context/AuthContext';
 import NotificationBell from '../notifications/NotificationBell';
 
@@ -57,7 +63,14 @@ const LandlordLayout: React.FC = () => {
         </Header>
         <Content style={{ margin: '16px' }}>
           <div style={{ padding: 24, minHeight: 360, background: '#fff' }}>
-            <Outlet /> {/* Child routes will be rendered here */}
+            <Routes>
+              <Route path="dashboard" element={<DashboardPage />} />
+              <Route path="tenants" element={<TenantsPage />} />
+              <Route path="leases" element={<LeasesPage />} />
+              <Route path="payments" element={<PaymentsPage />} />
+              <Route path="bills" element={<UtilityBillsPage />} />
+              <Route path="reports" element={<ReportsPage />} />
+            </Routes>
           </div>
         </Content>
       </Layout>

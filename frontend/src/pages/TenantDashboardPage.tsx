@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Descriptions, Typography, Spin, Alert } from 'antd';
-import api from '../../services/api';
+import api from '../services/api';
 import PaymentHistory from '../components/tenant/PaymentHistory';
 import UtilityBillsList from '../components/tenant/UtilityBillsList';
 

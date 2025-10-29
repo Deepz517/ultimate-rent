@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Table, Button, Select, Typography, Spin, message, Modal, Space } from 'antd';
 import { PlusOutlined, DeleteOutlined, EyeOutlined } from '@ant-design/icons';
-import api from '../../services/api';
-import UtilityBillForm from '../../components/utility-bills/UtilityBillForm';
+import api from '../services/api';
+import UtilityBillForm from '../components/utility-bills/UtilityBillForm';
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -95,13 +95,13 @@ const UtilityBillsPage: React.FC = () => {
 
   const columns = [
     { title: 'Bill Type', dataIndex: 'billType', key: 'billType' },
-    { title: 'Amount', dataIndex: 'amount', key: 'amount', render: (amount) => `₹${amount}` },
-    { title: 'Due Date', dataIndex: 'dueDate', key: 'dueDate', render: (date) => new Date(date).toLocaleDateString() },
+    { title: 'Amount', dataIndex: 'amount', key: 'amount', render: (amount: any) => `₹${amount}` },
+    { title: 'Due Date', dataIndex: 'dueDate', key: 'dueDate', render: (date: any) => new Date(date).toLocaleDateString() },
     { title: 'Billing Period', dataIndex: 'billingPeriod', key: 'billingPeriod' },
     {
       title: 'Action',
       key: 'action',
-      render: (_, record: UtilityBill) => (
+      render: (_: any, record: UtilityBill) => (
         <Space>
             <Button icon={<EyeOutlined />} onClick={() => window.open(`http://localhost:8080/uploads/${record.imageUrl}`, '_blank')}>View</Button>
             <Button icon={<DeleteOutlined />} danger onClick={() => handleDelete(record.id)}>Delete</Button>
